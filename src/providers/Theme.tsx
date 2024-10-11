@@ -10,8 +10,11 @@ const themes: { [name: string]: ThemeValues } = {
   dark: {
     theme: "dark",
     color: {
-      primary: "",
+      primary: "#000",
+      second:''
     },
+    borderColor: '#000',
+    borderRadius: '3px',
     body: {
       // display: "flex",
       // justifyContent: "right",
@@ -44,8 +47,11 @@ const themes: { [name: string]: ThemeValues } = {
   light: {
     theme: "light",
     color: {
-      primary: "",
+      primary: "#000",
+      second:''
     },
+    borderColor: '#000',
+    borderRadius: '3px',
     body: {
       backgroundColor: "#fff",
       color: "#000",
@@ -91,6 +97,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
           button: true,
           hover: true,
           background: true,
+          color:true
         },
       });
     };

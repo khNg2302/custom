@@ -15,10 +15,19 @@ type BodyThemeValues = {
 } & ObjectValueType &
   Omit<HTMLAttributes<unknown>["style"], "padding">;
 
+type Color = {
+  primary: string,
+  second: string,
+  [colorName: string]: string
+}
+
 type ThemeValues = {
   theme: "dark" | "light";
   body: BodyThemeValues;
   button: ButtonStylesType;
+  borderColor: string
+  borderRadius: string
+  color: Color
   [props: string]: unknown;
 };
 

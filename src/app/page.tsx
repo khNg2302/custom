@@ -1,4 +1,5 @@
 'use client'
+import { Option } from "@/components/ui/Option";
 import Button from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { useState } from "react";
@@ -14,6 +15,7 @@ export default function Home() {
         <Button label='button' onClick={()=>{setOpen(false)}}></Button>
         </div>
       </Modal>
+      <Option label='Option' type="primary" />
     </div>
   );
 }

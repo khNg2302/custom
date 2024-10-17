@@ -1,11 +1,13 @@
 import SignIn from "@/components/features/SignIn";
+import Container from "@/components/ui/containers/Container";
 
 const SignInPage = () => {
   return (
-    <div>
-      <h1>Sign in</h1>
+    <Container styles={{
+      margin: 'auto'
+    }}>
       <SignIn />
-    </div>
+    </Container>
   );
 };
 

@@ -12,3 +12,7 @@ export interface ExtractPropsOfObjectI {
 export type ObjectValueType = {
   [field: string]: string | number | ObjectValueType;
 };
+
+export enum Components {
+  OPTION = 'option',
+}

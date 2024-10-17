@@ -1,5 +1,6 @@
 "use client";
 
+import { FlexBox } from "@/components/ui/containers/FlexBox";
 import useResponsive from "@/hooks/useResponsive";
 import { ThemeValues } from "@/types/ui";
 import { ObjectValueType } from "@/types/utlis";
@@ -11,10 +12,12 @@ const themes: { [name: string]: ThemeValues } = {
     theme: "dark",
     color: {
       primary: "#000",
-      second:''
+      second: "",
     },
-    borderColor: '#000',
-    borderRadius: '3px',
+    borderColor: "#000",
+    borderRadius: ".5rem",
+    padding: ".25rem .5rem",
+    gap: "2rem",
     body: {
       // display: "flex",
       // justifyContent: "right",
@@ -25,22 +28,44 @@ const themes: { [name: string]: ThemeValues } = {
         md: "1rem",
         lg: "0rem",
       },
+      fontSize: {
+        sm: "1.4rem",
+        md: "1.6rem",
+        lg: "1.6rem",
+      },
     },
     button: {
-      backgroundColor: {
-        default: "",
-        primary: "",
+      type: {
+        default: {
+          backgroundColor: "#fff",
+          border: '1px solid',
+        },
+      },
+      fontSize: {
+        sm: "1.4rem",
+        md: "1.6rem",
+        lg: "1.6rem",
       },
       padding: ".5rem 1rem",
-      borderRadius: "8px",
-      border: "none",
+      borderRadius: ".5rem",
       cursor: "pointer",
-      transition: 'all .3s',
+      transition: "all .15s",
       hover: {
         boxShadow: "2px 2px 1px",
       },
       active: {
         boxShadow: "2px 2px 8px",
+      },
+    },
+    option: {
+      padding: '.5rem',
+      selected: {
+        background: 'yellow',
+        color:'white',
+        
+      },
+      hover: {
+        background: 'gray',
       }
     },
   },
@@ -48,10 +73,11 @@ const themes: { [name: string]: ThemeValues } = {
     theme: "light",
     color: {
       primary: "#000",
-      second:''
+      second: "",
     },
-    borderColor: '#000',
-    borderRadius: '3px',
+    borderColor: "#000",
+    borderRadius: "3px",
+    gap: "3rem",
     body: {
       backgroundColor: "#fff",
       color: "#000",
@@ -62,15 +88,24 @@ const themes: { [name: string]: ThemeValues } = {
       },
     },
     button: {
+      type: {
+        default: {
+          backgroundColor: "#fff",
+        },
+      },
       hover: {
         boxShadow: "2px 2px 1px",
       },
-      backgroundColor: {
-        default: "",
-        primary: "",
-      },
+
       padding: "",
       borderRadius: "",
+    },
+    option: {
+      padding: '1rem 2rem',
+      selected: {},
+      hover: {
+        
+      }
     },
   },
 };
@@ -95,9 +130,12 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
         notHandleKeys: {
           body: true,
           button: true,
+          option: true,
           hover: true,
-          background: true,
-          color:true
+          color: true,
+          selected: true,
+          type: true,
+          default: true,
         },
       });
     };
@@ -114,7 +152,14 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
             : {}
         }
       >
-        <main>{children}</main>
+        <main>
+          <FlexBox flexDirection="column" styles={{ width: '100%', margin: 'auto' }}>
+
+            {children}
+
+          </FlexBox>
+
+        </main>
       </body>
     </ThemeContext.Provider>
   );

@@ -1,34 +1,68 @@
 "use client";
 import useTheme from "@/hooks/useTheme";
-import { HTMLAttributes, useState } from "react";
+import { useMemo, useState } from "react";
+import { Text } from "./Text";
 
-interface BoxI {
+interface OptionI {
   label: string;
-  type: string;
-  style?: HTMLAttributes<HTMLDivElement>['style']
+  value: string
+  select?: boolean
+  onClick?: (key: string) => void
 }
 
 enum OptionDisplayState {
-  display='display',
-  hover='hover',
-  selected='selected'
+  display = "display",
+  hover = "hover",
+  selected = "selected",
 }
 
-export const Option = ({ label, type, style }: BoxI) => {
+export const Option = ({ label, value, select, onClick }: OptionI) => {
   const theme = useTheme();
-  const [displayState, setDisplayState] = useState<OptionDisplayState>(OptionDisplayState.display)
+  const [displayState, setDisplayState] = useState<OptionDisplayState>(
+    OptionDisplayState.display
+  );
+
+  const displayStyle = useMemo(() => {
+    switch (displayState) {
+      case OptionDisplayState.selected:
+        return theme?.option.selected
+      case OptionDisplayState.hover:
+        return theme?.option.hover
+      default:
+        return {}
+    }
+  }, [displayState, theme])
+  const handleOnClick = () => {
+    if (select && displayState === OptionDisplayState.selected) {
+      setDisplayState(OptionDisplayState.display);
+      return
+    }
+    setDisplayState(OptionDisplayState.selected);
+    onClick && onClick(value)
+  };
+
+  const handleHover = () => {
+    setDisplayState(OptionDisplayState.hover);
+  }
+
+  const handleLeave = () => {
+    if (select && displayState === OptionDisplayState.selected) return
+    setDisplayState(OptionDisplayState.display);
+  }
   return (
     <div
+      onClick={handleOnClick}
+      onMouseEnter={handleHover}
+      onMouseLeave={handleLeave}
       style={{
-        border: "1px solid",
-        borderColor: theme?.borderColor,
-        width: "fit-content",
-        padding: '.25rem 1rem',
-        borderRadius: theme?.borderRadius,
-        ...style
+        ...displayStyle,
+        width: "100%",
+        cursor: 'pointer'
       }}
     >
-      <p style={{ color: theme?.color[type] }}>{label}</p>
+      <Text level='p' style={{
+        padding: theme?.option.padding as string,
+      }}>{label}</Text>
     </div>
   );
 };

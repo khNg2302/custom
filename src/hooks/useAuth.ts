@@ -1,8 +1,7 @@
-import { AuthProvider, getAuth, signInWithPopup } from 'firebase/auth';
+import { AuthProvider, signInWithPopup } from 'firebase/auth';
 import { authInstances } from '../firebase/auth/index';
-import { app } from '@/firebase';
 import { useCallback } from 'react';
-const auth = getAuth(app)
+import { auth } from '@/firebase';
 
 export enum AuthInstance {
     GOOGLE = "google"

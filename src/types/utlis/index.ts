@@ -10,7 +10,7 @@ export interface ExtractPropsOfObjectI {
 }
 
 export type ObjectValueType = {
-  [field: string]: string | number | ObjectValueType;
+  [field: string]: string | number | ObjectValueType |boolean;
 };
 
 export enum Components {

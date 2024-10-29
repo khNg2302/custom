@@ -3,6 +3,7 @@ import useTheme from "@/hooks/useTheme";
 import { ButtonComp } from "@/types/ui";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useMemo, useRef, useState } from "react";
+import { FlexBox } from "./containers/FlexBox";
 
 const Button = ({ label, onClick, type = "default", icon }: ButtonComp) => {
   const theme = useTheme();
@@ -29,15 +30,18 @@ const Button = ({ label, onClick, type = "default", icon }: ButtonComp) => {
   return (
     <button
       ref={buttonRef}
-      style={{ ...typeStyle, ...res, ...affect, display: 'flex', justifyItems: 'center', justifyContent: 'center', gap: ((theme?.button.padding as string) || '').split(' ')[1] }}
-      onMouseOver={setHoverAffect}
-      onMouseLeave={setHoverAffect}
-      onMouseDown={setClickAffect}
-      onMouseUp={setClickAffect}
+      style={{  ...res,...typeStyle, ...affect, position: 'relative', overflow: 'hidden', width:'fit-content' }}
+
       onClick={onClick ?? onClick}
     >
-      {/* <Icon icon={icon as string} /> */}
-      {label}
+      <FlexBox flexDirection="row" styles={{ alignItems: 'center', justifyContent: 'center', gap: ((theme?.button.padding as string) || '').split(' ')[1] }}>
+        {icon && <Icon icon={icon as string} />} 
+        {label}
+      </FlexBox>
+      <div onMouseOver={setHoverAffect}
+        onMouseLeave={setHoverAffect}
+        onMouseDown={setClickAffect}
+        onMouseUp={setClickAffect} style={{ position: 'absolute', inset: 0 }}></div>
     </button>
   );
 };

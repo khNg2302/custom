@@ -15,6 +15,13 @@ type BodyThemeValues = {
 } & ObjectValueType &
   Omit<HTMLAttributes<unknown>["style"], "padding">;
 
+  
+type SidebarThemeValues = {
+  active:{[size: string]: boolean};
+  position:{[size: string]: string}
+} & ObjectValueType &
+Omit<HTMLAttributes<unknown>["style"], "position">;
+
 type Color = {
   primary: string,
   second: string,
@@ -29,12 +36,13 @@ type ThemeValues = {
   borderRadius: string
   color: Color
   option: OptionStylesType
+  sidebar: SidebarThemeValues
   [props: string]: unknown;
 };
 
 type ButtonComp = {
-  label: string;
-  type?: string
+  label: string | ReactNode;
+  type?: string | 'default' | 'ghost'
   onClick?: () => unknown
   icon?: string
 };
@@ -68,5 +76,7 @@ export type {
   ThemeValues,
   BodyThemeValues,
 };
+
+export const CloseIcon ='bytesize:close'
 
 export { ToggleDisplayEnum }

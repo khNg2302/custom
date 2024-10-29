@@ -47,10 +47,10 @@ export const Dropdown = ({ items, open, onChange, useOverlay, ...button }: Dropd
 
     }}>
         <Button {...button} onClick={() => onChange(!open)}></Button>
-        {useOverlay && isDisplay && <div onClick={handleOutClose} style={{ position: 'fixed', transition: 'all .15s', inset: 0, zIndex: 0, background: "rgba(0,0,0,.5)", ...currentDropdownDisplayStyle }}></div>}
+        {isDisplay && <div onClick={handleOutClose} style={{ position: 'fixed', transition: 'all .15s', inset: 0, zIndex: 0, background: useOverlay ? "rgba(0,0,0,.5)" : '', ...currentDropdownDisplayStyle }}></div>}
 
 
-        {isDisplay && <FlexBox onTransitionEnd={handleHidden} styles={{ transition: 'all .15s', padding: '0', gap: 0, width:'100px',background: 'white', position: 'absolute', top: '110%', justifyContent: 'center', zIndex: 1, ...currentDropdownDisplayStyle }}>
+        {isDisplay && <FlexBox onTransitionEnd={handleHidden} styles={{ transition: 'all .15s', padding: '0', gap: 0, width: '100px', background: 'white', position: 'absolute', top: '110%', justifyContent: 'center', zIndex: 1, ...currentDropdownDisplayStyle }}>
             {items.map((item) => (
                 < >
                     {(item.type === Components.OPTION) && <Option key={item.key} onClick={item.onClick} value={item.key} label={item.label}></Option>}

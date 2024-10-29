@@ -2,11 +2,13 @@
 import useTheme from "@/hooks/useTheme";
 import { useMemo, useState } from "react";
 import { Text } from "./Text";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface OptionI {
   label: string;
   value: string
   select?: boolean
+  icon?: string
   onClick?: (key: string) => void
 }
 
@@ -16,7 +18,7 @@ enum OptionDisplayState {
   selected = "selected",
 }
 
-export const Option = ({ label, value, select, onClick }: OptionI) => {
+export const Option = ({ label, value, select, icon, onClick }: OptionI) => {
   const theme = useTheme();
   const [displayState, setDisplayState] = useState<OptionDisplayState>(
     OptionDisplayState.display
@@ -57,11 +59,16 @@ export const Option = ({ label, value, select, onClick }: OptionI) => {
       style={{
         ...displayStyle,
         width: "100%",
-        cursor: 'pointer'
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center',
+        gap: theme?.padding as string,
+        padding: theme?.option.padding as string,
       }}
     >
+      {icon && <Icon icon={icon} />}
       <Text level='p' style={{
-        padding: theme?.option.padding as string,
+
       }}>{label}</Text>
     </div>
   );

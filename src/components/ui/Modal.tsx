@@ -3,6 +3,7 @@
 import useTheme from "@/hooks/useTheme";
 import { useToggleDisplay } from "@/hooks/useToggleDisplay";
 import { ReactNode, useMemo } from "react";
+import Button from "./Button";
 
 interface ModalI {
   open: boolean;
@@ -14,6 +15,7 @@ interface ModalI {
   };
   onClose: () => void;
   useOverlay: boolean
+  onHidden?: () => void
 }
 
 enum ToggleDisplayEnum {
@@ -32,13 +34,18 @@ const hiddenStyle = {
   opacity: 0,
 };
 
-export const Modal = ({ open, duration = { common: .15 }, useOverlay, children, onClose }: ModalI) => {
+export const Modal = ({ open, duration = { common: .15 }, useOverlay, children, onClose, onHidden }: ModalI) => {
   const theme = useTheme();
 
-  const { isDisplay, displayState, handleHidden, handleOutClose } = useToggleDisplay({
+  const { isDisplay, displayState, handleHidden: hidden, handleOutClose } = useToggleDisplay({
     open,
     onClose,
   })
+
+  const handleHidden = () => {
+    hidden()
+    onHidden && onHidden()
+  }
 
   const currentDisplayStyle =
     displayState === ToggleDisplayEnum.leave
@@ -66,30 +73,41 @@ export const Modal = ({ open, duration = { common: .15 }, useOverlay, children, 
             position: "fixed",
             padding: theme?.body.padding as string,
             inset: 0,
-            zIndex: 2
+            zIndex: 2,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
         >
-          {useOverlay && (<div
+          <div
             onTransitionEnd={handleHidden}
             style={{
               position: "absolute",
               inset: 0,
               zIndex: 1,
-              background: "rgba(0,0,0,.5)",
+              background: useOverlay ? "rgba(0,0,0,.5)" : "",
               transition: "all " + transitionValue + "s",
               ...currentDisplayStyle,
             }}
             onClick={handleOutClose}
-          ></div>)}
+          ></div>
           <div
-            onTransitionEnd={handleHidden}
             style={{
               position: "absolute",
               ...currentDisplayStyle,
-              zIndex: 2
+              zIndex: 2,
+              maxHeight: '100%',
+              overflow: 'auto',
+              background: 'white',
+              borderRadius: theme?.borderRadius,
             }}
           >
-            {children}
+            <div style={{ display: 'flex', justifyContent: 'end', padding: '1rem' as string }}>
+              <Button icon='bytesize:close' label='' type="ghost" onClick={onClose} />
+            </div>
+            <div style={{padding: '1rem 2rem', paddingTop:'0'}}> 
+              {children}
+            </div>
           </div>
         </div>
       )}

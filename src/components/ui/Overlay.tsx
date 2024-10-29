@@ -1,9 +1,11 @@
 import { useToggleDisplay } from "@/hooks/useToggleDisplay"
 import { ToggleDisplayEnum } from "@/types/ui"
+import { HTMLAttributes } from "react"
 
 interface OverlayI {
     open: boolean
     onClick: () => void
+    style?: HTMLAttributes<unknown>['style']
 }
 
 const overlayHiddenStyle = {
@@ -18,7 +20,7 @@ const overlayDisplayStyle = {
     opacity: 1
 }
 
-export const Overlay = ({ open, onClick }: OverlayI) => {
+export const Overlay = ({ open, onClick, style }: OverlayI) => {
 
     const { isDisplay, displayState, handleHidden } = useToggleDisplay({ open, onClose: onClick })
 
@@ -33,6 +35,7 @@ export const Overlay = ({ open, onClick }: OverlayI) => {
                 zIndex: 1,
                 transition: '0.15s',
                 background: 'rgba(0,0,0,.5)',
+                ...style,
                 ...currentDisplayStyle
             }}>
             </div>}

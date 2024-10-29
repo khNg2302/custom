@@ -10,10 +10,13 @@ import { createContext, ReactNode, useEffect, useMemo, useState } from "react";
 const themes: { [name: string]: ThemeValues } = {
   dark: {
     theme: "dark",
+
     color: {
       primary: "#000",
       second: "",
     },
+    transition: '.15s',
+    border: '1px solid',
     borderColor: "#000",
     borderRadius: ".5rem",
     padding: ".25rem .5rem",
@@ -21,12 +24,13 @@ const themes: { [name: string]: ThemeValues } = {
     body: {
       // display: "flex",
       // justifyContent: "right",
+      height: '100%',
       backgroundColor: "#fff",
       color: "#000",
       padding: {
-        sm: ".5rem",
-        md: "1rem",
-        lg: "0rem",
+        sm: "0",
+        md: "0",
+        lg: "0",
       },
       fontSize: {
         sm: "1.4rem",
@@ -35,10 +39,16 @@ const themes: { [name: string]: ThemeValues } = {
       },
     },
     button: {
+      border: '1px solid',
       type: {
         default: {
           backgroundColor: "#fff",
-          border: '1px solid',
+
+        },
+        ghost: {
+          backgroundColor: "#fff",
+          padding: '.2rem',
+          borderColor: 'transparent'
         },
       },
       fontSize: {
@@ -51,9 +61,11 @@ const themes: { [name: string]: ThemeValues } = {
       cursor: "pointer",
       transition: "all .15s",
       hover: {
+        borderColor: 'black',
         boxShadow: "2px 2px 1px",
       },
       active: {
+        borderColor: 'black',
         boxShadow: "2px 2px 8px",
       },
     },
@@ -61,16 +73,36 @@ const themes: { [name: string]: ThemeValues } = {
       padding: '.5rem',
       selected: {
         background: 'yellow',
-        color:'white',
-        
+        color: 'white',
+
       },
       hover: {
         background: 'gray',
       }
     },
+    sidebar: {
+      transition: 'all .15s',
+      height: '100%',
+      overflow: 'auto',
+      position: {
+        sm: "absolute",
+        md: "relative",
+        lg: "relative",
+      },
+
+      active: {
+        sm:false,
+        md: true,
+        lg: true
+      }
+    },
+    scrollBar:{
+      width: '1.5rem'
+    }
   },
   light: {
     theme: "light",
+    transaction: '5s',
     color: {
       primary: "#000",
       second: "",
@@ -82,7 +114,7 @@ const themes: { [name: string]: ThemeValues } = {
       backgroundColor: "#fff",
       color: "#000",
       padding: {
-        sm: ".5rem",
+        sm: "1rem",
         md: "1rem",
         lg: "0rem",
       },
@@ -104,9 +136,25 @@ const themes: { [name: string]: ThemeValues } = {
       padding: '1rem 2rem',
       selected: {},
       hover: {
-        
+
       }
     },
+    sidebar: {
+      border: '1px solid',
+      position: {
+        sm: "absolute",
+        md: "relative",
+
+      },
+      active: {
+        sm:false,
+        md: true,
+        lg: true
+      }
+    },
+    scrollBar:{
+      width: '1.5rem'
+    }
   },
 };
 
@@ -136,6 +184,9 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
           selected: true,
           type: true,
           default: true,
+          ghost: true,
+          sidebar: true,
+          scrollBar:true
         },
       });
     };
@@ -152,8 +203,8 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
             : {}
         }
       >
-        <main>
-          <FlexBox flexDirection="column" styles={{ width: '100%', margin: 'auto' }}>
+        <main style={{ height: '100%' }}>
+          <FlexBox flexDirection="column" styles={{ width: '100%', margin: 'auto', height: '100%', padding: '0' }}>
 
             {children}
 

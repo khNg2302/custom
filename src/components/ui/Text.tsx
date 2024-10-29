@@ -8,7 +8,8 @@ interface TextI {
 
 export const Text = ({ level, children, style }: TextI) => {
     return <>
-        {level === 1 && <h1>{children}</h1>}
+        {level === 1 && <h1 style={style}>{children}</h1>}
+        {level === 4 && <h4 style={style}>{children}</h4>}
         {level === 'span' && <span style={{
             ...style
         }}>{children}</span>}

@@ -16,6 +16,7 @@ const Container = ({ children, getStyle,styles,...res }: ContainerI) => {
   return (
     <div
       style={{
+        overflow: 'hidden',
         width: "fit-content",
         padding: theme?.padding as string,
         maxWidth: "1200px",

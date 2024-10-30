@@ -6,10 +6,10 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface OptionI {
   label: string;
-  value: string
+  value: string | unknown
   select?: boolean
   icon?: string
-  onClick?: (key: string) => void
+  onClick?: (values: string | unknown) => void
 }
 
 enum OptionDisplayState {

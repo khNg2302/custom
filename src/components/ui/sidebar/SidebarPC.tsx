@@ -1,27 +1,20 @@
-
-
-
-import { Option } from "../Option"
+import { ReactNode } from "react"
 import { SidebarFrame } from "./SidebarFrame"
 import { ThemeValues } from "@/types/ui"
 
 interface SidebarPC {
-    theme: ThemeValues |null
+    theme: ThemeValues | null
+    children?: ReactNode
 }
 
-export const SidebarPC = ({ theme }: SidebarPC) => {
-
-
-
+export const SidebarPC = ({ theme, children }: SidebarPC) => {
     return <>
         <SidebarFrame theme={theme} style={{
-            padding:0
+            padding: 0
         }} elementStyle={{
-            padding:0
+            padding: 0
         }}>
-            <Option label={"Option"} value={"1"} icon='material-symbols:1k-plus' />
-            <Option label={"Option"} value={"1"} icon='material-symbols:1k-plus' />
-            <Option label={"Option"} value={"1"} icon='material-symbols:1k-plus' />
+            {children}
         </SidebarFrame>
 
     </>

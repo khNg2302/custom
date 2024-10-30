@@ -1,17 +1,17 @@
 
 import { useToggleDisplay } from "@/hooks/useToggleDisplay"
 import { CloseIcon, ThemeValues, ToggleDisplayEnum } from "@/types/ui"
-import { useState } from "react"
+import { ReactNode, useState } from "react"
 import Button from "../Button"
 import { Overlay } from "../Overlay"
-import { Option } from "../Option"
 import { SidebarFrame } from "./SidebarFrame"
 
 interface SidebarMobile {
     theme: ThemeValues | null
+    children?:ReactNode
 }
 
-export const SidebarMobile = ({ theme }: SidebarMobile) => {
+export const SidebarMobile = ({ theme, children }: SidebarMobile) => {
     const [activeSidebar, setActiveSidebar] = useState(false)
 
     const handleToggleSideBar = () => {
@@ -29,9 +29,7 @@ export const SidebarMobile = ({ theme }: SidebarMobile) => {
         <SidebarFrame style={{ ...currentDisplayStyle, position: 'absolute', inset:0,zIndex:1 }} elementStyle={{paddingLeft:'1.5rem'}} onTransitionEnd={handleHidden} theme={theme} topElements={<div style={{ display: 'flex', justifyContent: 'start' as string }}>
             <Button icon={CloseIcon} label='' type='ghost' onClick={() => setActiveSidebar(false)}></Button>
         </div>}>
-            <Option label={"Option"} value={"1"} icon='material-symbols:1k-plus' />
-            <Option label={"Option"} value={"1"} icon='material-symbols:1k-plus' />
-            <Option label={"Option"} value={"1"} icon='material-symbols:1k-plus' />
+           {children}
         </SidebarFrame>
     </div>
 }

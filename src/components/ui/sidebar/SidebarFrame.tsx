@@ -23,9 +23,9 @@ export const SidebarFrame = ({ children, topElements, style, theme, elementStyle
         gap: '0',
         transition: theme?.transition as string,
         width: '200px',
-        overflow: 'hidden',
         ...theme?.sidebar as {},
         ...style,
+        overflow: 'hidden',
     }}
         onTransitionEnd={onTransitionEnd}
     >
